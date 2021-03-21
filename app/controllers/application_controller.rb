@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  add_flash_types :success, :info, :warning, :danger
   
   def logged_in_user
     unless logged_in?

@@ -1,7 +1,6 @@
 class Customer::UsersController < Customer::MainController
 	# before_action :logged_in_user, only: [:show, :edit, :update]
  	
-	
   def show
     @user = User.find(params[:id])
     redirect_to employee_user(@user) if @user.employee?

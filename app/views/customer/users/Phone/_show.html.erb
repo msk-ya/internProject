@@ -29,117 +29,125 @@
 
   <div class="current_orders">
     <h1 class="center">現在受付中のご注文</h1>
-    <% @in_unfinished_order.each do |key, orders| %>
-    <% total_sum = 0 %>
-      <h2><%= key.strftime('%Y年%-m月%-d日') %></h2>
-      <div><span class="text-danger">希望の受け取り時間：</span><%= key.strftime('%-H:%-M') %></div>
-      <div>ご注文の商品</div>
-        <table class="table current_orders_table">
-              <thead>
+    <% if @in_unfinished_order.present? %>
+      <% @in_unfinished_order.each do |key, orders| %>
+      <% total_sum = 0 %>
+        <h2><%= key.strftime('%Y年%-m月%-d日') %></h2>
+        <div><span class="text-danger">希望の受け取り時間：</span><%= key.strftime('%-H:%-M') %></div>
+        <div>ご注文の商品</div>
+          <table class="table current_orders_table">
+                <thead>
+                  <tr>
+                    <td colspan="2">商品名</td>
+                    <td>単価</td>
+                    <td>数量</td>
+                    <td>小計</td>
+                  </tr>
+                </thead>
+                <tbody>
+                <% orders.each do |order| %>
+                  <tr>
+                    <td><%= image_tag(employee_item_image_path(order.orderShowIntoItemImage), width:'40px') %></td>
+                    <td class="text-left"><%= order.name %>(<%= order.orderShowProductProcessing %>)</td>
+                    <td><%= order.price.to_s(:delimited) %></td>
+                    <td><%= order.num %></td>
+                    <% product_sum = order.orderShowProductSum %>
+                    <td><%= product_sum.to_s(:delimited) %></td>
+                  </tr>
+                  <% total_sum += product_sum %>
+                <% end %>
                 <tr>
-                  <td colspan="2">商品名</td>
-                  <td>単価</td>
-                  <td>数量</td>
-                  <td>小計</td>
+                  <td colspan="5"><div class="text-right">ご請求小計： <%= total_sum.to_s(:delimited) %> 円</td>
                 </tr>
-              </thead>
-              <tbody>
-              <% orders.each do |order| %>
-                <tr>
-                  <td><%= image_tag(employee_item_image_path(order.orderShowIntoItemImage), width:'40px') %></td>
-                  <td class="text-left"><%= order.name %>(<%= order.orderShowProductProcessing %>)</td>
-                  <td><%= order.price.to_s(:delimited) %></td>
-                  <td><%= order.num %></td>
-                  <% product_sum = order.orderShowProductSum %>
-                  <td><%= product_sum.to_s(:delimited) %></td>
-                </tr>
-                <% total_sum += product_sum %>
-              <% end %>
-              <tr>
-                <td colspan="5"><div class="text-right">ご請求小計： <%= total_sum.to_s(:delimited) %> 円</td>
-              </tr>
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+      <% end %>
+    <% else %>
+        <div class="center">現在、受付中のご注文はありません。</div>
     <% end %>
   </div>
 
   <div class="history_orders">
     <h1 class="center">ご注文履歴</h1>
-    <div class="accordion" id="accordion-order-show-5">
-      <div class="card">
-        <div class="card-header text-center" id="header-order-show-5a">
-          <button class="btn btn-link text-body" type="button"
-              data-toggle="collapse" data-target="#card-order-show-5a"
-              aria-expanded="true" aria-controls="card-order-show-5a">
-            ご注文履歴はこちらから
-          </button>
-        </div>
-        <div id="card-order-show-5a" class="collapse"
-            aria-labelledby="header-order-show-5a" data-parent="#accordion-order-show-5">
-          <div>
-                  <div class="accordion" id="accordion-4">
-                    <% @in_finished_order.each do |key, orders| %> 
-                    <% total_sum = 0 %>
-                      <div class="card card_body_history_orders">
-                        <div class="card-header" id="header-<%= orders.first.id %>">
-                          <button class="btn btn-link table-witdh-change" type="button"
-                            data-toggle="collapse" data-target="#card-<%= orders.first.id %>"
-                            aria-expanded="true" aria-controls="card-<%= orders.first.id %>">
-                                <table class="table table-noborder order-show-table">
-                                    <tr class="text-left">
-                                      <td width="35%">ご注文日時</td>
-                                      <td width="23%">お受け取り時間</td>
-                                      <td width="30%">ご注文商品</td>
-                                      <td rowspan="2" class="font-weight-bold align-middle text-right">
-                                      <% if orders.first.status == "delivery" %>受取済<% end %>
-                                      </td>
-                                    </tr>
-                                    <tr class="text-left">
-                                      <td><%= key.strftime('%Y年%-m月%-d日%-H時%M分') %></td>
-                                      <td><%= orders.first.order_time.strftime('%-H時%M分') %></td>
-                                      <td><%= orders_names(orders) %></td>
-                                    </tr>
-                                </table>
-                          </button>
-                        </div>
-                        <div id="card-<%= orders.first.id %>" class="collapse"
-                            aria-labelledby="header-<%= orders.first.id %>" data-parent="#accordion-4">
-                          <div class="card-body finished-order-table">
-                            <div>ご注文の商品</div>
-                              <table class="table current_orders_table">
-                                    <thead>
-                                      <tr>
-                                        <td colspan="2">商品名</td>
-                                        <td>単価</td>
-                                        <td>数量</td>
-                                        <td>小計</td>
+    <% if @in_finished_order.present? %>
+      <div class="accordion" id="accordion-order-show-5">
+        <div class="card">
+          <div class="card-header text-center" id="header-order-show-5a">
+            <button class="btn btn-link text-body" type="button"
+                data-toggle="collapse" data-target="#card-order-show-5a"
+                aria-expanded="true" aria-controls="card-order-show-5a">
+              ご注文履歴はこちらから
+            </button>
+          </div>
+          <div id="card-order-show-5a" class="collapse"
+              aria-labelledby="header-order-show-5a" data-parent="#accordion-order-show-5">
+            <div>
+                    <div class="accordion" id="accordion-4">
+                      <% @in_finished_order.each do |key, orders| %> 
+                      <% total_sum = 0 %>
+                        <div class="card card_body_history_orders">
+                          <div class="card-header" id="header-<%= orders.first.id %>">
+                            <button class="btn btn-link table-witdh-change" type="button"
+                              data-toggle="collapse" data-target="#card-<%= orders.first.id %>"
+                              aria-expanded="true" aria-controls="card-<%= orders.first.id %>">
+                                  <table class="table table-noborder order-show-table">
+                                      <tr class="text-left">
+                                        <td width="35%">ご注文日時</td>
+                                        <td width="23%">お受け取り時間</td>
+                                        <td width="30%">ご注文商品</td>
+                                        <td rowspan="2" class="font-weight-bold align-middle text-right">
+                                        <% if orders.first.status == "delivery" %>受取済<% end %>
+                                        </td>
                                       </tr>
-                                    </thead>
-                                    <tbody>
-                                    <% orders.each do |order| %>
-                                      <tr>
-                                        <td><%= image_tag(employee_item_image_path(order.orderShowIntoItemImage), width:'40px') %></td>
-                                        <td class="text-left"><%= order.name %>(<%= order.orderShowProductProcessing %>)</td>
-                                        <td><%= order.price.to_s(:delimited) %></td>
-                                        <td><%= order.num %></td>
-                                        <% product_sum = order.orderShowProductSum %>
-                                        <td><%= product_sum.to_s(:delimited) %></td>
+                                      <tr class="text-left">
+                                        <td><%= key.strftime('%Y年%-m月%-d日%-H時%M分') %></td>
+                                        <td><%= orders.first.order_time.strftime('%-H時%M分') %></td>
+                                        <td><%= orders_names(orders) %></td>
                                       </tr>
-                                      <% total_sum += product_sum %>
-                                    <% end %>
-                                    <tr>
-                                      <td colspan="5"><div class="text-right">ご請求小計： <%= total_sum.to_s(:delimited) %> 円</td>
-                                    </tr>
-                                  </tbody>
-                                </table>
+                                  </table>
+                            </button>
+                          </div>
+                          <div id="card-<%= orders.first.id %>" class="collapse"
+                              aria-labelledby="header-<%= orders.first.id %>" data-parent="#accordion-4">
+                            <div class="card-body finished-order-table">
+                              <div>ご注文の商品</div>
+                                <table class="table current_orders_table">
+                                      <thead>
+                                        <tr>
+                                          <td colspan="2">商品名</td>
+                                          <td>単価</td>
+                                          <td>数量</td>
+                                          <td>小計</td>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                      <% orders.each do |order| %>
+                                        <tr>
+                                          <td><%= image_tag(employee_item_image_path(order.orderShowIntoItemImage), width:'40px') %></td>
+                                          <td class="text-left"><%= order.name %>(<%= order.orderShowProductProcessing %>)</td>
+                                          <td><%= order.price.to_s(:delimited) %></td>
+                                          <td><%= order.num %></td>
+                                          <% product_sum = order.orderShowProductSum %>
+                                          <td><%= product_sum.to_s(:delimited) %></td>
+                                        </tr>
+                                        <% total_sum += product_sum %>
+                                      <% end %>
+                                      <tr>
+                                        <td colspan="5"><div class="text-right">ご請求小計： <%= total_sum.to_s(:delimited) %> 円</div></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    <% end %>
-                  </div>
+                      <% end %>
+                    </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    <% else %>
+      <div class="center">ご注文履歴はありません。</div>
+    <% end %>
   </div>
 </div>

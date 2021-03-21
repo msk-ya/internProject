@@ -1,0 +1,14 @@
+<% provide(:title, @user.name) %>
+<div class="orderConfirm">
+  <div class="continer">
+    <!-- pcの場合-->
+    <div class="orderconfirm-pc">
+      <%= render 'customer/orders/PC/confirm' %>
+    </div>
+
+    <!-- phoneの場合-->
+    <div class="orderconfirm-phone">
+      <%= render 'customer/orders/Phone/confirm' %>
+    </div>
+  </div>
+</div>

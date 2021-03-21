@@ -1,0 +1,56 @@
+<div class="text-center font-weight-bold mt-4 mb-2"><h1>お買い物カゴ</h1></div>
+<% if @baskets.present? %>
+  <table class="table baskets-edit-table baskets-edit-mobile">
+    <tbody>
+      <tr>
+        <td colspan="2" class="center">商品名</td>
+        <td class="center pr-1">単価</td>
+        <td></td>
+        <td>数量</td>
+        <td>小計</td>
+      </tr>
+      <% total_sum = 0 %>
+      <% basket_array = 0 %>
+      <%= form_with model: @baskets, url: customer_basket_path(@user.id), local: true, method: :patch do |f| %>
+        <% @baskets.each do |basket| %>
+        <%= f.fields_for 'basket[]', basket do |b| %>
+        <% basket_array += 1 %>
+        <%= basket.basketErrorCheck %>
+          <tr>
+            <td class="align-middle">
+            <%= link_to customer_path(basket.basketPageBack) do %>
+              <%= image_tag(employee_item_image_path(basket.basketIntoItemImage), width:'30px') %>
+            <% end %>
+            </td>
+            <td class="center"><%= basket.name %>(<%= basket.basketProductProcessing %>)</td>
+            <td><%= basket.price.to_s(:delimited) %></td>
+            <td><%= link_to '削除', customer_basket_path(@user.id, basket_id: basket.id), class:'btn btn-danger btn-sm', method: :delete %></td>
+            <td>
+            <%= b.select :num, basket.basketStockProductNum, { selected: basket.num }, id:"basket-array#{basket_array}" %>
+            </td>
+            <% product_sum = basket.basketProductSum %>
+            <td><%= product_sum.to_s(:delimited) %></td>
+          </tr>
+          <% total_sum += product_sum %>
+          <%= b.hidden_field :b_id, :value => basket.id %>
+          <%= b.hidden_field :name, :value => basket.name %>
+        <% end %>
+        <% end %>
+      <tr>
+        <td colspan="7"><div class="text-right">ご請求小計： <%= total_sum.to_s(:delimited) %> 円</div></td>
+      </tr>
+      <tr>
+        <td colspan="7" class="border-0">
+          <div class="text-center">
+            <div class="mb-2"><%= link_to 'お買い物を続ける', top_show_path, class:"btn btn-outline-primary col-6" %></div>
+            <div class="mb-2"><%= f.submit '変更を保存する', class: 'btn btn-primary col-6', name: 'page_save_update' %></div>
+            <div><%= f.submit 'お会計手続きへ', class: 'btn btn-primary col-6', name: 'page_next_update' %></div>
+          </div>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="center mt-4">現在、お買い物カゴの中身はありません。</div>
+<% end %>

@@ -98,7 +98,7 @@ class Order < ApplicationRecord
    #全商品オーダー月別算出
 
    def self.saleAllproduct(param_date)
-      first_day =param_date.present? ?Date.parse(param_date).beginning_of_month : Date.today.beginning_of_month 
+      first_day = param_date.present? ? Date.parse(param_date).beginning_of_month : Date.today.beginning_of_month 
       last_day = first_day.end_of_month
       where(status: :delivery).where(order_date: first_day .. last_day).order(order_date: :ASC)  
    end
@@ -195,10 +195,19 @@ class Order < ApplicationRecord
 
 #前売上数量 saleByProduct使用
 
- def self.totalNumber(datas)
+ def self.totalNumber(datas)    
    total = 0
    datas.map{|data| total +=  data.num.to_i }
    return total
  end
   
+  def self.sumPrises(buyings)
+    sum = 0
+      buyings.each do |buy| 
+        sum += (buy.price.to_i * buy.num.to_i)
+      end
+        return sum.to_s(:delimited, delimiter: ',')
+      
+  end
+
 end

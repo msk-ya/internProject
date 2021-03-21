@@ -1,11 +1,15 @@
 <div class="order_decided_phone">
   <div class="col-md-8">
     <h2 class="center">注文を確定しました。</h2>
-    <div class="ordershow">
-      <h3>お受け取り日<br><%= l(@order.order_date, format: :long) %></h3>
-      <h3>お受け取り時間<br><%= l(@order.order_time, format: :tim) %></h3>
-      <h3>金額<br><%= @order.price %>円</h3>
-    </div>
+<div class="ordershow">
+        <% sum = 0 %>
+        <% @smOrder.each do |order| %>
+          <% sum +=  order.price * order.num %>
+        <% end %>
+          <h4>お受け取り日：<br><%= l(@sOrder.order_date, format: :long) %></h4>
+          <h4>お受け取り時間：<br><%= l(@sOrder.order_time, format: :tim) %></h4>
+          <h4>金額：<%= sum.to_s(:delimited, delimiter: ',') %>円</h4>  
+      </div>
       <p class="order_com">ご注文のお品をお受け取りの際は、必ずお名前をお知らせください。<br>
         受け取り予定時間に間に合わない場合は、店舗までご連絡ください。<br>
         閉店時間までにお受け取りがない場合はキャンセルとなりますので、ご了承下さい。

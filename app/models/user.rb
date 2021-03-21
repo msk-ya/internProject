@@ -69,5 +69,21 @@ class User < ApplicationRecord
     orders.where(order_date: Date.today).where(status: :delivery)
   end
   
+  #買い物かごに入れたものを抽出
+  def user_buyings(buys)
+    buyings = []
+
+    buys.each do |buy|
+      buyInstance = self.orders.new(
+        name: buy[:name],
+        process: buy[:process],
+        price: buy[:price],
+        num: buy[:num]
+      )
+      buyings.push(buyInstance)
+    end
+    return buyings
+  end
+
 end
 

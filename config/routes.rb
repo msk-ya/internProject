@@ -24,8 +24,14 @@ Rails.application.routes.draw do
   get '/signup', to: 'customer/users#new' 
   
   namespace :customer do
-    resources :users, except:[:index, :destroy]
-    resources :orders
+    resources :users, except:[:index, :destroy] do
+      resources :orders do
+        get :confirm, on: :collection
+        collection do
+          get :show
+        end
+      end
+    end
   end
   
   resources :session, only:[:new, :create,:destroy]
@@ -34,5 +40,13 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   #####################杉浦さんエリア##################################################################################
+  
+  namespace :customer do
+    resources :baskets, except:[:show, :index]
+    get '/baskets/:product_id', to: 'baskets#show'
+  end
+  
+  
+
 
 end

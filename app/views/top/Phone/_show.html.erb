@@ -17,7 +17,7 @@
         <% @products.each do |product| %>
           <div class="col-8 col-offset2 mb-5 mx-auto">
             <% if product.stock > 0 %>
-              <%= link_to "/customer/products/#{product.id}#", class:'text-dark' do %>
+              <%= link_to customer_path(product.productShowId), class:'text-dark' do %>
                 <%= image_tag(employee_item_image_path(product.productIntoItemImage), width:'100%') %>
                 <p class="center"><%= product.name %></p> 
               <% end %>       

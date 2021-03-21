@@ -1,0 +1,29 @@
+<div class="text-center font-weight-bold mt-4"><h1>商品詳細</h1></div>
+<table class="table baskets-edit-table baskets-edit-mobile">
+  <tbody class="text-center">
+    <tr>
+      <td class="border-0 align-middle"><%= image_tag(employee_item_image_path(@item.id), width:'100px') %></td>
+      <td class="border-0 align-middle">
+          <div class="align-text-bottom text-center"><%= @item.name %>価格<%= @product.price %>円</div>
+          <div class="align-text-top text-center"><%= @item.info %></div>
+      </td>
+    </tr>
+    <% @process.each do |process| %>
+    <tr>
+      <td><%= basketProcessProcessing(process.name) %></td>
+      <% if logged_in? %>
+        <% unless current_user.employee? %>
+          <td><%= link_to 'お買い物カゴへ', customer_baskets_path(id: current_user.id, name: @item.name, process: process.name), class:"btn btn-outline-primary", method: :post %></td>
+        <% end %>
+      <% else %>
+          <td><%= link_to 'お買い物カゴへ', login_url, class:"btn btn-outline-primary" %></td>
+      <% end %>
+    </tr>
+    <% end %>
+    <tr>
+      <td colspan="2">
+      <%= link_to '戻るボタン', top_show_path, class:"btn btn-primary mt-2" %>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+
   4.times do |i|
     User.create!(
       name: "従業員#{i + 1}",
@@ -28,127 +29,6 @@
       password_confirmation: 'password'
     )
   end
-  8.times do |i| 
-    Order.create(
-      name: 'さんま',
-      price: 100,
-      process: 'sasimi',
-      num: 5,
-      order_date: Date.today + 1,
-      order_date_details: DateTime.now + 1,
-      order_time: Time.local(
-        Time.now.year,
-        Time.now.month,
-        Time.now.day,
-        Time.now.hour + 1,
-        30,0),
-      user_id: 5
-    )
- end
- 4.times do |i| 
-  Order.create(
-    name: 'さんま',
-    price: 100,
-    process: 'kirimi',
-    num: 5,
-    order_date: Date.today+1,
-    order_date_details: DateTime.now + 1,
-    order_time: Time.local(
-      Time.now.year,
-      Time.now.month,
-      Time.now.day,
-      Time.now.hour + i,
-      30,0),
-    user_id: 5
-  )
- end
- 4.times do |i| 
-  Order.create(
-    name: 'さんま',
-    price: 100,
-    process: 'sioyaki',
-    num: 5,
-    order_date: Date.today + 1,
-    order_date_details: DateTime.now + 1,
-    order_time: Time.local(
-      Time.now.year,
-      Time.now.month,
-      Time.now.day,
-      Time.now.hour + i,
-      30,0),
-    user_id: 5
-  )
-  end
-  8.times do |i|
-    Order.create(
-      name: 'さんま',
-      price: 100,
-      process: 'sasimi',
-      num: 5,
-      order_date: Date.today.beginning_of_month.prev_month + i,
-      order_date_details: DateTime.now.beginning_of_month.prev_month + i,
-      order_time: Time.local(
-        Time.now.year,
-        Time.now.month,
-        Time.now.day,
-        Time.now.hour + 1,
-        30,0),
-      user_id: 6
-    )
-  end
-  8.times do |i|
-    Order.create(
-      name: 'さんま',
-      price: 100,
-      process: 'kirimi',
-      num: 5,
-      status: 'delivery',
-      order_date: Date.today.beginning_of_month.prev_month + i,
-      order_date_details: DateTime.now.beginning_of_month.prev_month + i,
-      order_time: Time.local(
-        Time.now.year,
-        Time.now.month,
-        Time.now.day,
-        Time.now.hour + 1,
-        30,0),
-      user_id: 6
-    )
-  end
-  8.times do |i|
-    Order.create(
-      name: 'さんま',
-      price: 100,
-      process: 'sioyaki',
-      num: 5,
-      status: 'delivery',
-      order_date: Date.today + i,
-      order_date_details: DateTime.now + i,
-      order_time: Time.local(
-        Time.now.year,
-        Time.now.month,
-        Time.now.day ,
-        Time.now.hour + 1,
-        30,0),
-      user_id: 6
-    )
-  end
-  8.times do |i|
-    Order.create(
-      name: 'さんま',
-      price: 100,
-      process: 'sasimi',
-      num: 5,
-      status: 'delivery',
-      order_date: Date.today + i,
-      order_date_details: DateTime.now + i,
-      order_time: Time.local(
-        Time.now.year,
-        Time.now.month,
-        Time.now.day ,
-        Time.now.hour + 1,
-        30,0),
-      user_id: 6
-    )
 
   items = [
     ['たい', 'white', '新鮮で身が引き締まったタイです'],
@@ -190,7 +70,7 @@
       price: 250,
       process: process,
       seles_date: Date.today + 1,
-      stock: 30
+      stock: 15
     )
   end
   process_sugi.each do |process|
@@ -199,7 +79,7 @@
       price: 200,
       process: process,
       seles_date: Date.today + 1,
-      stock: 30
+      stock: 28
     )
   end
   process_sugi.each do |process|
@@ -208,7 +88,7 @@
       price: 180,
       process: process,
       seles_date: Date.today + 1,
-      stock: 30
+      stock: 22
     )
   end
   process_sugi.each do |process|
@@ -217,7 +97,7 @@
       price: 230,
       process: process,
       seles_date: Date.today + 1,
-      stock: 30
+      stock: 18
     )
   end
   process_sugi.each do |process|
@@ -226,7 +106,7 @@
       price: 240,
       process: process,
       seles_date: Date.today + 1,
-      stock: 30
+      stock: 26
     )
   end
   process_sugi.each do |process|
@@ -235,7 +115,7 @@
       price: 210,
       process: process,
       seles_date: Date.today + 1,
-      stock: 30
+      stock: 28
     )
   end
 
@@ -299,7 +179,179 @@
       }
     )
   end
-   
-    
-
+  [
+    ['ひらめ', 240, 'sashimi', 2, 5, '2021-02-25 14:30:00'],
+    ['ぶり', 210, 'sioyaki', 3, 5, '2021-02-25 14:31:00'],
+    ['ふぐ', 250, 'nimono', 2, 5, '2021-02-25 14:32:30'],
+    ['ふぐ', 250, 'sasimi', 4, 5, '2021-02-25 14:31:30'],
+    ['たこ', 230, 'sasimi', 6, 5, '2021-02-25 14:32:00'],
+    ['いか', 220, 'nimono', 2, 6, '2021-02-25 14:30:00'],
+    ['あゆ', 330, 'flay', 3, 6, '2021-02-25 14:31:00'],
+    ['ふぐ', 250, 'nimono', 2, 6, '2021-02-25 14:32:30'],
+    ['たい', 220, 'sasimi', 4, 6, '2021-02-25 14:31:30'],
+    ['たこ', 230, 'sasimi', 6, 6, '2021-02-25 14:32:00'],
+  ].each do |name, price, process, num, user_id, in_basket_at|
+  Basket.create!(
+    {
+      name: name,
+      price: price,
+      process: process,
+      num: num,
+      user_id: user_id,
+      in_basket_at: in_basket_at
+    }
+  )
   end
+
+  [
+    ['kirimi', 1],
+    ['flay', 1],
+    ['nimono', 1],
+    ['sasimi', 1],
+    ['kirimi', 2],
+    ['sasimi', 2],
+    ['kirimi', 3],
+    ['flay', 3],
+    ['nimono', 3],
+    ['sasimi', 3],
+    ['kirimi', 4],
+    ['sasimi', 4],
+    ['flay', 4],
+    ['kirimi', 5],
+    ['sasimi', 5],
+    ['flay', 5],
+    ['kirimi', 6],
+    ['sasimi', 6],
+    ['flay', 7],
+    ['nimono', 7]
+  ].each do |name, item_id|
+    Processing.create!(
+      {
+        name: name,
+        item_id: item_id
+      }
+    )
+  end
+  
+#   8.times do |i| 
+#     Order.create(
+#       name: 'さんま',
+#       price: 100,
+#       process: 'sasimi',
+#       num: 5,
+#       order_date: Date.today + 1,
+#       order_date_details: DateTime.now + 1,
+#       order_time: Time.local(
+#         Time.now.year,
+#         Time.now.month,
+#         Time.now.day,
+#         Time.now.hour + 1,
+#         30,0),
+#       user_id: 5
+#     )
+#  end
+#  4.times do |i| 
+#   Order.create(
+#     name: 'さんま',
+#     price: 100,
+#     process: 'kirimi',
+#     num: 5,
+#     order_date: Date.today+1,
+#     order_date_details: DateTime.now + 1,
+#     order_time: Time.local(
+#       Time.now.year,
+#       Time.now.month,
+#       Time.now.day,
+#       Time.now.hour + i,
+#       30,0),
+#     user_id: 5
+#   )
+#  end
+#  4.times do |i| 
+#   Order.create(
+#     name: 'さんま',
+#     price: 100,
+#     process: 'sioyaki',
+#     num: 5,
+#     order_date: Date.today + 1,
+#     order_date_details: DateTime.now + 1,
+#     order_time: Time.local(
+#       Time.now.year,
+#       Time.now.month,
+#       Time.now.day,
+#       Time.now.hour + i,
+#       30,0),
+#     user_id: 5
+#   )
+#   end
+#   8.times do |i|
+#     Order.create(
+#       name: 'さんま',
+#       price: 100,
+#       process: 'sasimi',
+#       num: 5,
+#       order_date: Date.today.beginning_of_month.prev_month + i,
+#       order_date_details: DateTime.now.beginning_of_month.prev_month + i,
+#       order_time: Time.local(
+#         Time.now.year,
+#         Time.now.month,
+#         Time.now.day,
+#         Time.now.hour + 1,
+#         30,0),
+#       user_id: 6
+#     )
+#   end
+#   8.times do |i|
+#     Order.create(
+#       name: 'さんま',
+#       price: 100,
+#       process: 'kirimi',
+#       num: 5,
+#       status: 'delivery',
+#       order_date: Date.today.beginning_of_month.prev_month + i,
+#       order_date_details: DateTime.now.beginning_of_month.prev_month + i,
+#       order_time: Time.local(
+#         Time.now.year,
+#         Time.now.month,
+#         Time.now.day,
+#         Time.now.hour + 1,
+#         30,0),
+#       user_id: 6
+#     )
+#   end
+#   8.times do |i|
+#     Order.create(
+#       name: 'さんま',
+#       price: 100,
+#       process: 'sioyaki',
+#       num: 5,
+#       status: 'delivery',
+#       order_date: Date.today + i,
+#       order_date_details: DateTime.now + i,
+#       order_time: Time.local(
+#         Time.now.year,
+#         Time.now.month,
+#         Time.now.day ,
+#         Time.now.hour + 1,
+#         30,0),
+#       user_id: 6
+#     )
+#   end
+#   8.times do |i|
+#     Order.create(
+#       name: 'さんま',
+#       price: 100,
+#       process: 'sasimi',
+#       num: 5,
+#       status: 'delivery',
+#       order_date: Date.today + i,
+#       order_date_details: DateTime.now + i,
+#       order_time: Time.local(
+#         Time.now.year,
+#         Time.now.month,
+#         Time.now.day ,
+#         Time.now.hour + 1,
+#         30,0),
+#       user_id: 6
+#     )
+# end

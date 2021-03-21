@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="responsiveMenu">
         <ul class="navbar-nav">
         <% unless current_user.employee? %>
-          <li class="nav-item"><%= link_to "お買い物かご", "#" %></li>
+          <li class="nav-item"><%= link_to "お買い物かご", edit_customer_basket_path(current_user), data: {"turbolinks" => false} %></li>
           <li class="nav-item"><%= link_to "マイページ", customer_user_path(current_user) %></li>
         <% end %>
           <li class="nav-item"><%= link_to "ログアウト", logout_path, method: :delete %></li>

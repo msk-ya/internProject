@@ -1,0 +1,50 @@
+<div class="row"> 
+  <div class="col-md-8 offset-2">
+    <h1 class="center">注文内容の確認</h1>
+      <br><b>お受け取り日</b><br>
+      <%= openDate %><br>
+      <br>受け取り時間を下記から選択してください。<%= Time.now %>
+      <%= form_with(url: customer_user_orders_path(@user), local: true, method: :post)  do |f| %>
+        <%= f.select :order_time, orderTime, include_blank: "選択して下さい" %> 
+        <%= f.hidden_field :order_date, value: reciveDate %>
+        <%= f.hidden_field :status, value: true %>       
+        <h2 class="center">ご注文の商品</h2>
+      
+        <table class="table table-bordered table-condensed table-hover" id="table-attendances">
+          <thead>
+            <tr>
+              <th></th>
+              <th>商品名</th>
+              <th>加工名</th>
+              <th>単価</th>
+              <th>数量</th>
+              <th>小計</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @buyings.each do |buy| %>
+              <%= f.fields_for "orders[]", buy do |af| %>
+                <tr>
+                  <td><%= image_tag(employee_item_image_path(buy.orderItemImage),size:'80') %> </td>
+                  <td><%= buy.name %></td>
+                  <td><%= buy.process %></td>
+                  <td><%= buy.price %></td>
+                  <td><%= buy.num %></td>
+                  <td><%= buy.price * buy.num %></td>
+                  <%= af.hidden_field :name, value: buy.name %>
+                  <%= af.hidden_field :process, value: buy.process %>
+                  <%= af.hidden_field :price, value: buy.price %>
+                  <%= af.hidden_field :num, value: buy.num %>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="orderRight">
+          <h3>ご請求金額  <%= @allTotal %>円</h3>
+          <%= link_to "お買い物かごに戻る", "#", class: "btn btn-outline-secondary" %>
+          <%= f.submit "注文を確定する", class: "btn btn-info" %>
+        </div>
+      <% end %>
+  </div>
+</div>

@@ -44,4 +44,9 @@ module ProductDecorator
       item = Item.find_by(name: name)
       return item.id
   end
+
+  def productShowId
+    item = Product.find_by(name: name)
+    return item.id
+  end
 end
