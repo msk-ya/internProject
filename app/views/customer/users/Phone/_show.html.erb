@@ -86,23 +86,23 @@
                       <% @in_finished_order.each do |key, orders| %> 
                       <% total_sum = 0 %>
                         <div class="card card_body_history_orders">
-                          <div class="card-header" id="header-<%= orders.first.id %>">
+                          <div class="card-header px-0 mx-0 my-0" id="header-<%= orders.first.id %>">
                             <button class="btn btn-link table-witdh-change" type="button"
                               data-toggle="collapse" data-target="#card-<%= orders.first.id %>"
                               aria-expanded="true" aria-controls="card-<%= orders.first.id %>">
                                   <table class="table table-noborder order-show-table">
                                       <tr class="text-left">
-                                        <td width="35%">ご注文日時</td>
-                                        <td width="23%">お受け取り時間</td>
-                                        <td width="30%">ご注文商品</td>
-                                        <td rowspan="2" class="font-weight-bold align-middle text-right">
+                                        <td width="35%" class="px-0 mx-0 my-0">注文日時</td>
+                                        <td width="23%" class="px-0 mx-0 my-0">受取時間</td>
+                                        <td width="30%" class="px-0 mx-0 my-0">注文商品</td>
+                                        <td rowspan="2" class="font-weight-bold align-middle text-right px-0 mx-0 my-0">
                                         <% if orders.first.status == "delivery" %>受取済<% end %>
                                         </td>
                                       </tr>
                                       <tr class="text-left">
-                                        <td><%= key.strftime('%Y年%-m月%-d日%-H時%M分') %></td>
-                                        <td><%= orders.first.order_time.strftime('%-H時%M分') %></td>
-                                        <td><%= orders_names(orders) %></td>
+                                        <td class="px-0 mx-0 my-0"><%= key.strftime('%-m月%-d日%-H時%M分') %></td>
+                                        <td class="px-0 mx-0 my-0"><%= orders.first.order_time.strftime('%-H時%M分') %></td>
+                                        <td class="px-0 mx-0 my-0"><%= orders_names(orders) %></td>
                                       </tr>
                                   </table>
                             </button>
