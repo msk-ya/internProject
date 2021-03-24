@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
  
   get 'top/show'
-  root 'employee/items#index'
+  root 'top#show'
 #####################植松エリア##################################################################################
   namespace :employee do
     resources :items
