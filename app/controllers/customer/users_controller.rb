@@ -1,5 +1,5 @@
 class Customer::UsersController < Customer::MainController
-  
+  protect_from_forgery
 	# before_action :logged_in_user, only: [:show, :edit, :update]
  	
   def show
