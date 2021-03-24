@@ -1,5 +1,5 @@
 class Customer::OrdersController < ApplicationController
-  protect_from_forgery 
+ 
   add_flash_types :success, :info, :warning, :danger
   before_action :set_order, only: %i[ index  edit update destroy  ]
 
